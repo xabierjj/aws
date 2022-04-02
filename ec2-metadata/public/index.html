@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EC2-Metadata</title>
+    <link  rel="stylesheet" type="text/css" href="default.css" id="theme-color">
+</head>
+
+<script>
+const renderData = (res) => {
+    document.getElementById('ip').append(res.public_ipv4);
+
+    for (let key in res) { 
+        let list = document.getElementById('metadata');
+        list.innerHTML = list.innerHTML + `<li>${key} : ${res[key]} </li>`;
+    }
+}
+fetch('http://localhost:3000/metadata')
+.then( data =>  data.json())
+.then( renderData)
+.catch( err => console.log(err))
+
+
+
+
+
+
+</script>
+<body>
+    <section class="py-7 bg-dark section-angle top-right bottom-right" id="projects">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mx-auto text-center">
+                    <h2 class="text-white heading-black">EC2 Instance</h2>
+                </div>
+            </div>
+            <div class="row pt-5 pricing-table">
+                <div class="col-12 mx-auto">
+                    <div class="card-deck pricing-table">
+                       
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 id="ip" class="card-title text-info mb-0 pt-4"></h2>
+                                <ul id="metadata" class="list-unstyled pricing-list">
+                                </ul>       
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
